@@ -6,7 +6,7 @@ class Ball {
   float dx;
   float dy;
   float state;
-  float decrease; //when to decrease
+  boolean stop;
 
 
 
@@ -18,7 +18,7 @@ Ball(){
   dx=random(-5,5);
   dy=random(-5,5);
   state = 0;
-  decrease=0;
+  stop = false;
 }
 
 Ball(int xcor, int ycor){
@@ -29,7 +29,7 @@ Ball(int xcor, int ycor){
   dx=random(-5,5);
   dy=random(-5,5);
   state = 0;
-  decrease=0;
+  stop = false;
 }
 
 void move(){
@@ -54,6 +54,16 @@ void display(){
   
 }
 
+float x_position(){
+  return x;
+}
+
+float y_position(){
+  return y;
+}
+
+
+
 void changeState(){
   state = 1; 
 }
@@ -63,20 +73,27 @@ float getState(){
 
 void reaction(){
   System.out.println(rad);
-  if (state == 13) decrease+=0.25;
-  if (decrease ==0) {
-    rad=rad+state; //using state for size increase
-    state=state+0.25;   
+  if(state == 1 && !stop){
+    rad += 1;
+    if(rad >= 150){
+      stop = true;
+     }
   }
-  else {
-    rad=rad-decrease;
+  else{
+    rad -= 1;
   }
   ellipse(x,y,rad,rad);
     
 }
 
-boolean detectCollision(){
-return false;
+void checkCollided(){
+  for(int i = 0; i < balls.size(); i++){
+      if(dist(balls.get(i).x_position(),balls.get(i).y_position(),x,y) <= balls.get(i).getRad() + rad){
+        balls.get(i).changeState();
+        
+      }
+  
+  }
 }
 
 float getRad(){
