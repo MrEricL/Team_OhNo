@@ -1,5 +1,5 @@
 # Team_OhNo
-## Jeffrey Weng, Eric Lin
+Jeffrey Weng, Eric Lin
 
 ### Description
 
